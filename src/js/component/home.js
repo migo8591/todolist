@@ -1,24 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
-
-//create your first component
 export function Home() {
+	const [tareas, setTareas] = useState("");
+	const [lista, setLista] = useState([]);
 	return (
 		<div className="text-center mt-5">
-			<h1>Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
+			<h1 className="display-3 text-primary">Todo List</h1>
+			<input
+				value={tareas}
+				onChange={e => {
+					setTareas(e.target.value);
+					//console.log(e.target.value);
+				}}
+				onKeyPress={e => {
+					if (e.key == "Enter") {
+						//adicionar la tarea al array
+						setLista(lista.concat(tareas));
+						setTareas(""); //limpia el input
+						console.log(lista);
+					}
+				}}
+			/>
+			{lista.map((item, index) => {
+				return <li key={index}>{item}</li>;
+			})}
 		</div>
 	);
 }
+//cada vez que hago enter alimento el arreglo y hago map para mostrarlo
